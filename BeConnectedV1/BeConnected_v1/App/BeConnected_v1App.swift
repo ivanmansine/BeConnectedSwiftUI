@@ -11,7 +11,7 @@ import SwiftUI
 struct BeConnected_v1App: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            LoginView()
         }
     }
 }

@@ -13,32 +13,37 @@ struct HomeView: View{
     @StateObject var stack = RootView(service: NewsService())
     
     var body: some View {
-        Group {
-            
-            switch stack.state {
-            case .loading:
-                ProgressView()
+            Group {
                 
-            case .failed(let error):
-                ErrorView(error: error, handler: stack.getArticles)
-                
-            case .success(let articles):
-                NavigationView {
-                    List(articles) { item in
-                        ArticleCellView(article: item)
-                            .onTapGesture {
-                            load(from: item.url)
+                switch stack.state {
+                case .loading:
+                    ProgressView()
+                    
+                case .failed(let error):
+                    ErrorView(error: error, handler: stack.getArticles)
+                    
+                case .success(let articles):
+                    NavigationView {
+                        List(articles) { item in
+                            ArticleCellView(article: item)
+                                .onTapGesture {
+                                    load(from: item.url)
+                                }
                         }
-                    }
-                    .navigationTitle("Noticias")
-
+                    }.navigationTitle("Be Connected")
+                        .navigationBarBackButtonHidden(true)
+                        .padding(5)
+                        .toolbar{
+                            NavigationLink(destination: LoginView()) {
+                                Text("Logout")
+                            }
+                        
+                        }
                 }
             }
-            
-        }
-        .onAppear(perform: stack.getArticles)
+            .onAppear(perform: stack.getArticles)
+
     }
-    
     func load(from url: String?) {
         guard let link = url, let url = URL(string: link) else { return }
         
