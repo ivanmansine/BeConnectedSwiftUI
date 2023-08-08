@@ -20,6 +20,7 @@ struct HomeView: View{
                     ProgressView()
                     
                 case .failed(let error):
+                    //Cuando no hay conexion con la API, lo manejamos con este error
                     ErrorView(error: error, handler: stack.getArticles)
                     
                 case .success(let articles):
@@ -35,8 +36,8 @@ struct HomeView: View{
                         .padding(5)
                         .toolbar{
                             NavigationLink(destination: LoginView()) {
-                                Text("Logout")
-                            }
+                                Text("Log-Out")
+                            }.foregroundColor(.black)
                         
                         }
                 }
@@ -46,7 +47,7 @@ struct HomeView: View{
     }
     func load(from url: String?) {
         guard let link = url, let url = URL(string: link) else { return }
-        
+        //MARK: TO DO - aqui podemos poner la detailview y dentro el openURL dentro, si va bien
         openURL(url)
     }
 }

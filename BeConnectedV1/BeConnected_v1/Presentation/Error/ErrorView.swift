@@ -6,7 +6,7 @@
 //
 
 
-//Para que cuando haya problemas de conectividad con la API, salte esta pantalla
+//Para que cuando haya problemas de conectividad con la API, salte esta pantalla 
 import SwiftUI
 
 struct ErrorView: View {

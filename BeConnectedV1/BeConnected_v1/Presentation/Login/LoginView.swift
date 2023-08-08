@@ -6,11 +6,17 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct LoginView: View{
     
-    @State private var user = ""
+    @State private var email = ""
     @State private var password = ""
+    @State private var isSignIn = true
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var selection: Int? = nil
+    
     
     var body: some View{
         NavigationView {
@@ -20,68 +26,103 @@ struct LoginView: View{
                 Image(decorative: "fondologin")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
-                .colorInvert()
+                    .colorInvert()
+                    .grayscale(1.0)
                 VStack{
-                    
-                    //Textfield de User y Pass
                     VStack{
-                        TextField("Email", text: $user)
+                        TextField("Email", text: $email)
                             .foregroundColor(.black)
                             .padding(10)
                             .bold()
-                            .border(Color.black)
+                            .border(Color.black, width: 5)
                             .background(.white)
                             .multilineTextAlignment(.center)
-                            
+                        
                         
                         Spacer()
                         SecureField("Password", text: $password)
                             .padding(10)
                             .bold()
-                            .border(Color.black)
+                            .border(Color.black, width: 5)
                             .background(.white)
                             .multilineTextAlignment(.center)
-                            .foregroundStyle(.white)
-
+                            .foregroundStyle(.black)
+                        
                         
                     }.frame(width: 280,height: 100)
-                        .padding(80)
-                    //Button Login
+                        .padding(40)
                     
-                    Spacer()
+                    Button(isSignIn ? " Iniciar sesion " : "Registrarse") {
+                        if isSignIn{
+                            signIn()
+                        } else {
+                            signUp()
+                        }
+                    }
+                    .padding()
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .overlay(Capsule(style: .continuous)
+                        .stroke(Color.white,lineWidth: 5)
+                    )
+                    .background(.black)
+                    .cornerRadius(40)
                     
-                    NavigationLink(destination: HomeView()) {
-                        Text("Login")
-                            .font(.title)
-                            .padding(25)
-                            .foregroundColor(.black)
-                            .background(Color(.systemGreen))
-                            .cornerRadius(50)
-                    }.frame(width: 200)
+                    Button(isSignIn ? "¿No tienes cuenta aun?" : "¿Ya tienes cuenta?") {
+                        isSignIn.toggle()
+                    }
+                    .padding()
+                    .foregroundColor(.white)
+                    .overlay(Capsule(style: .continuous)
+                        .stroke(Color.white,lineWidth: 5)
+                    )
+                    .background(.black)
+                    .cornerRadius(40)
+                    
                 }.frame(width: 600,height: 100, alignment: .top)
-                    
-                    //                    Button{
-                    //                        //root
-                    //                    }label:{
-                    //                        Text("Login")
-                    //                            .font(.title3)
-                    //                            .bold()
-                    //                            .foregroundStyle(.black)
-                    //                            .padding()
-                    //                            .frame(width: 120,height: 120)
-                    //                            .background(Color(uiColor: UIColor(red: 0/255, green: 130/255, blue: 0/255, alpha: 1)))
-                    //                            .cornerRadius(1000)
-                    //                    }
-                    //                }.frame(width: 600, height: 100)
-                }
+                    .alert(isPresented: $showAlert){
+                        Alert(title: Text("Error"),
+                              message: Text(alertMessage),
+                              dismissButton: .default(Text("OK")))
+                    }
+                    .background(
+                        NavigationLink(
+                            destination: HomeView(),
+                            tag:1,
+                            selection: $selection,
+                            label: { EmptyView() })
+                        )
                 
-            }.navigationBarBackButtonHidden(true)
+            }
+       }.navigationBarBackButtonHidden(true)
+    }
+    func signIn() {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                alertMessage = error.localizedDescription
+                showAlert = true
+            } else {
+                print("inicio de sesion correctamente")
+                self.selection = 1
+            }
         }
     }
     
-    
-    struct LoginView_Preview: PreviewProvider{
-        static var previews: some View{
-            LoginView()
+    func signUp() {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                alertMessage = error.localizedDescription
+                showAlert = true
+            } else {
+                self.selection = 1
+            }
         }
     }
+}
+
+
+struct LoginView_Preview: PreviewProvider{
+    static var previews: some View{
+        LoginView()
+    }
+}
