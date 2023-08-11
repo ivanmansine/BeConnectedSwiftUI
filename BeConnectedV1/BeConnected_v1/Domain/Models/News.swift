@@ -22,6 +22,8 @@ struct Article: Codable, Identifiable {
     let date: Date?
 }
 
+
+// MOCK
 extension Article {
     static var noticiaEjemplo: Article {
         .init(author: "Manolito Prueba",

@@ -9,6 +9,5 @@ import Foundation
 import Combine
 
 protocol RemoteDataSourceProtocol{
-//    func login()
     func getArticles()
 }

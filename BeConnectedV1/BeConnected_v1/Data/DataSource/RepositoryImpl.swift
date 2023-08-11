@@ -1,5 +1,5 @@
 //
-//  NewsAPI.swift
+//  RepositoryImpl.swift
 //  BeConnected_v1
 //
 //  Created by Manso García Iván on 3/8/23.
@@ -8,11 +8,11 @@
 import Foundation
 
 
-enum NewsAPI {
+enum RepositoryImpl {
     case getNews
 }
 
-extension NewsAPI: RepositoryProtocol {
+extension RepositoryImpl: RepositoryProtocol {
     var baseUrl: URL {
         switch self{
         case .getNews:

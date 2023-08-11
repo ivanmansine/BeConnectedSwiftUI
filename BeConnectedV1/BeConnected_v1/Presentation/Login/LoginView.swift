@@ -10,6 +10,7 @@ import Firebase
 
 struct LoginView: View{
     
+    
     @State private var email = ""
     @State private var password = ""
     @State private var isSignIn = true
@@ -101,8 +102,9 @@ struct LoginView: View{
             if let error = error {
                 alertMessage = error.localizedDescription
                 showAlert = true
+                //print("Error") //MOCK
             } else {
-                print("inicio de sesion correctamente")
+                //print("inicio de sesion correctamente") //MOCK
                 self.selection = 1
             }
         }
@@ -113,7 +115,9 @@ struct LoginView: View{
             if let error = error {
                 alertMessage = error.localizedDescription
                 showAlert = true
+                //print("Error registr") //MOCK
             } else {
+                //print("Registro correctamente") //MOCK
                 self.selection = 1
             }
         }

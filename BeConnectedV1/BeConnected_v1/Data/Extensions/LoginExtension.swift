@@ -35,4 +35,5 @@ struct LoginExtension<NewView: View>: ViewModifier {
                 .opacity(0)
         )
     }
+    
 }

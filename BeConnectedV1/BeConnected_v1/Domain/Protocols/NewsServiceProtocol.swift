@@ -9,6 +9,6 @@ import Foundation
 import Combine
 
 protocol NewsServiceProtocol {
-    func request(from endpoint:  NewsAPI) -> AnyPublisher<News, RemoteDataSourceImpl>
+    func request(from endpoint:  RepositoryImpl) -> AnyPublisher<News, RemoteDataSourceImpl>
 }
 

@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "05E4682A-D53C-4740-8188-F7A11721AEDD",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:BeConnected_v1.xcodeproj",
+      "identifier" : "D8153A6C2A7BA7B0003BE6D8",
+      "name" : "BeConnected_v1"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:BeConnected_v1.xcodeproj",
+        "identifier" : "D8153A7C2A7BA7B1003BE6D8",
+        "name" : "BeConnected_v1Tests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:BeConnected_v1.xcodeproj",
+        "identifier" : "D8153A862A7BA7B1003BE6D8",
+        "name" : "BeConnected_v1UITests"
+      }
+    }
+  ],
+  "version" : 1
+}

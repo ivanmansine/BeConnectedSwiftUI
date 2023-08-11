@@ -10,7 +10,7 @@ import Combine
 
 struct NewsService: NewsServiceProtocol {
     
-    func request(from endpoint: NewsAPI) -> AnyPublisher<News, RemoteDataSourceImpl> {
+    func request(from endpoint: RepositoryImpl) -> AnyPublisher<News, RemoteDataSourceImpl> {
         return URLSession
             .shared
             .dataTaskPublisher(for: endpoint.urlRequest)
